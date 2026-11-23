@@ -7,6 +7,7 @@ Implementación en TypeScript del servicio emisor (algoritmo 1), el registro de 
 ```
 src/marco.ts        Modelo (ecuaciones 1–10), componentes y verificador
 src/evaluacion.ts   Escenarios del caso de estudio y pruebas nuevas, con su resultado esperado
+src/vectores.ts     Exporta los vectores de prueba para la comparación con la implementación en Python
 resultados/         resultados.json y resultados.md, que genera la evaluación
 ```
 
@@ -19,6 +20,7 @@ npm install
 npm run evaluar           # ejecuta los 55 casos; termina con código 1 si alguno no coincide
 npm run evaluar:detalle   # igual, mostrando el motivo de cada resultado
 npm run tipos             # comprobación de tipos (tsc, modo estricto)
+npm run vectores          # exporta los vectores del caso de estudio a vectores/vectores.json
 ```
 
 Versiones usadas en la ejecución documentada: Node.js 22.23.5, TypeScript 5.9.3 y tsx 4.23.15.

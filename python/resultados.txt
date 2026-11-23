@@ -1,0 +1,45 @@
+Valor                      Python             TypeScript         Coincide
+pk(orquestador)            e7a2e082848ba34f   e7a2e082848ba34f   sí
+pk(cuentas)                335a33da31435f09   335a33da31435f09   sí
+pk(antifraude)             2873fb24ef76a5a3   2873fb24ef76a5a3   sí
+pk(registro)               1111538e60210cc3   1111538e60210cc3   sí
+c de E1                    ce1066d356c75701   ce1066d356c75701   sí
+C(E1)                      0000000e54582d32   0000000e54582d32   sí
+d(E1)                      ef95dee9015803df   ef95dee9015803df   sí
+σ de E1                    c8da718fa7265f96   c8da718fa7265f96   sí
+c de E2                    0056ec9a5e40532e   0056ec9a5e40532e   sí
+C(E2)                      0000000e54582d32   0000000e54582d32   sí
+d(E2)                      c004de1737d7f4fd   c004de1737d7f4fd   sí
+σ de E2                    fe870e1d793905c9   fe870e1d793905c9   sí
+c de E3                    a856c553c283d774   a856c553c283d774   sí
+C(E3)                      0000000e54582d32   0000000e54582d32   sí
+d(E3)                      41b4cc9180d66a80   41b4cc9180d66a80   sí
+σ de E3                    7507424f256e0132   7507424f256e0132   sí
+c de E4                    5e13357c073a3cbb   5e13357c073a3cbb   sí
+C(E4)                      0000000e54582d32   0000000e54582d32   sí
+d(E4)                      14eb39d997e6bbab   14eb39d997e6bbab   sí
+σ de E4                    dfebb94f8877f943   dfebb94f8877f943   sí
+c de E5                    b1d491e05a3ca066   b1d491e05a3ca066   sí
+C(E5)                      0000000e54582d32   0000000e54582d32   sí
+d(E5)                      991f7bad5de9cbc3   991f7bad5de9cbc3   sí
+σ de E5                    9abe97b4fb5d6a72   9abe97b4fb5d6a72   sí
+A0                         de3182924a3b4e40   de3182924a3b4e40   sí
+A1                         23f6881e92edba68   23f6881e92edba68   sí
+A2                         ed4e6def6993374a   ed4e6def6993374a   sí
+A3                         a0ac93dd37fe856a   a0ac93dd37fe856a   sí
+A4                         92d809c5126e19e4   92d809c5126e19e4   sí
+A5                         8b811cdbda0385ee   8b811cdbda0385ee   sí
+σ_R de K_t                 cbad839b04072af5   cbad839b04072af5   sí
+K_t (bytes)                0000000e54582d32   0000000e54582d32   sí
+A₅ de TX-2026-000123       8b811cdbda0385ee   8b811cdbda0385ee   sí
+A₅ de TX-2026-000124       1e5c24675b6e3934   1e5c24675b6e3934   sí
+A₅ de TX-2026-000125       04cec0287376b1c8   04cec0287376b1c8   sí
+A₅ de TX-2026-000126       2677629033a1a546   2677629033a1a546   sí
+A₅ de TX-2026-000127       778cecc59f932263   778cecc59f932263   sí
+Raíz del periodo           b968809d7fd6ad3d   b968809d7fd6ad3d   sí
+Prueba de inclusión        D48fb9062c5852f3   D48fb9062c5852f3   sí
+MTH de un periodo vacío    e3b0c44298fc1c14   e3b0c44298fc1c14   sí
+
+Firmas de TX-2026-000123 verificadas en Python: sí
+Inclusión de K_t en la raíz verificada en Python: sí
+40/40 valores idénticos.

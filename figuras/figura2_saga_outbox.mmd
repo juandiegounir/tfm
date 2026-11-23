@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant O as Orquestador
+    participant S as Servicio (p. ej. cuentas)
+    participant DB as BD local + tabla Outbox
+    participant PB as Publicador del Outbox
+    participant R as Registro de evidencias
+    participant T as Testigo externo
+    O->>S: Orden del paso k (clave op-k, intento a, referencias P)
+    S->>DB: Transacción local: datos de negocio + (E, σ) en Outbox
+    Note over S,DB: Un solo commit: el evento existe si y solo si la operación se confirmó. Hasta aquí, dentro del paso de la saga
+    PB->>DB: Lee los eventos pendientes de publicar
+    PB-)O: Evento de negocio (respuesta del paso)
+    PB-)R: Evidencia (E, σ) — entrega al menos una vez
+    alt Evento nuevo con dependencias registradas
+        R->>R: Valida forma, emisor y firma y calcula Aᵢ
+        R--)PB: ACEPTADO (se marca como publicado)
+    else Reentrega idéntica
+        R--)PB: IGNORADO (no cambia la cadena)
+    else Falta alguna dependencia causal
+        R->>R: En espera con plazo hasta que llegue
+        R--)PB: PENDIENTE
+    end
+    opt Fallo de un paso de la saga
+        O->>S: Orden de reverso
+        S->>DB: Reverso local + evento COMPENSACION en Outbox
+        PB-)R: Evidencia del reverso (mismo recorrido)
+    end
+    O-)R: Fin de la transacción
+    R->>R: Cierre y punto de referencia K_t
+    R->>T: Fin del periodo: raíz de Merkle
