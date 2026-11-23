@@ -1,0 +1,752 @@
+{
+  "raizP1": "b968809d7fd6ad3d3f88d79a1a2d5efca2dbc8c02890f8fe5d43607095187c60",
+  "raizP2": "9e3d7e1dbb0d91020dc043cb22f4cbda5a3b1c47b65c10a481bb51c88bbf7502",
+  "casos": [
+    {
+      "id": "V-d(E1)",
+      "grupo": "Vectores",
+      "obs": "RNF-01",
+      "descripcion": "d(E1) de TX-2026-000123",
+      "esperado": "ef95dee90158",
+      "obtenido": "ef95dee90158",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "ef95dee9015803df2266eb9bf35c272ae8005afd5ee2d83670b989fc75e20b5d",
+      "coincide": true
+    },
+    {
+      "id": "V-A₀",
+      "grupo": "Vectores",
+      "obs": "RNF-01",
+      "descripcion": "A₀ de TX-2026-000123",
+      "esperado": "de3182924a3b",
+      "obtenido": "de3182924a3b",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "de3182924a3b",
+      "coincide": true
+    },
+    {
+      "id": "V-Raíz",
+      "grupo": "Vectores",
+      "obs": "RNF-01",
+      "descripcion": "Raíz del periodo",
+      "esperado": "b968809d7fd6",
+      "obtenido": "b968809d7fd6",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "b968809d7fd6ad3d3f88d79a1a2d5efca2dbc8c02890f8fe5d43607095187c60",
+      "coincide": true
+    },
+    {
+      "id": "V-A₅",
+      "grupo": "Vectores",
+      "obs": "RNF-01",
+      "descripcion": "A₅ de TX-2026-000123",
+      "esperado": "8b811cdbda03",
+      "obtenido": "8b811cdbda03",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "8b811cdbda0385eeba1dd8b43e22f4a2c0870952b2afac908dacec0c0478d807",
+      "coincide": true
+    },
+    {
+      "id": "V-A₅",
+      "grupo": "Vectores",
+      "obs": "RNF-01",
+      "descripcion": "A₅ de TX-2026-000124",
+      "esperado": "1e5c24675b6e",
+      "obtenido": "1e5c24675b6e",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "1e5c24675b6e3934ccd732b0bf284eb78cf0aedbcbab89fed2a3c36aba6ba3bd",
+      "coincide": true
+    },
+    {
+      "id": "V-A₅",
+      "grupo": "Vectores",
+      "obs": "RNF-01",
+      "descripcion": "A₅ de TX-2026-000125",
+      "esperado": "04cec0287376",
+      "obtenido": "04cec0287376",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "04cec0287376b1c87b76a2d71be90b4edfdf040a2163efb6c769d370c62c2578",
+      "coincide": true
+    },
+    {
+      "id": "V-A₅",
+      "grupo": "Vectores",
+      "obs": "RNF-01",
+      "descripcion": "A₅ de TX-2026-000126",
+      "esperado": "2677629033a1",
+      "obtenido": "2677629033a1",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "2677629033a1a5460e4d9217111938fe7d761ca3f731e44b1a2798d08a403c26",
+      "coincide": true
+    },
+    {
+      "id": "V-A₅",
+      "grupo": "Vectores",
+      "obs": "RNF-01",
+      "descripcion": "A₅ de TX-2026-000127",
+      "esperado": "778cecc59f93",
+      "obtenido": "778cecc59f93",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "778cecc59f9322639f1e481bca3bf6367402d3ea0ca16b27b18ccf683523d36d",
+      "coincide": true
+    },
+    {
+      "id": "1",
+      "grupo": "Caso de estudio",
+      "obs": "RF-01–RF-06",
+      "descripcion": "Ejecución normal",
+      "esperado": "VÁLIDO",
+      "obtenido": "VÁLIDO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "todas las comprobaciones se cumplen [Aₙ = 8b811cdbda03]",
+      "coincide": true
+    },
+    {
+      "id": "2",
+      "grupo": "Caso de estudio",
+      "obs": "Amenaza alteración",
+      "descripcion": "Alteración de E3 (riesgo 0,12 → 0,92)",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V3",
+        "V4",
+        "V5",
+        "V7"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V3",
+      "fallan": "V3, V4, V5, V7",
+      "detalle": "E3: firma inválida (antifraude) [Aₙ = 622da2aa13ef]",
+      "coincide": true
+    },
+    {
+      "id": "3",
+      "grupo": "Caso de estudio",
+      "obs": "Amenaza eliminación",
+      "descripcion": "Eliminación de E3",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V2",
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V2",
+      "fallan": "V2, V4, V5, V6",
+      "detalle": "se esperaban 5 eventos y hay 4 [Aₙ = c74e04102168]",
+      "coincide": true
+    },
+    {
+      "id": "4a-r",
+      "grupo": "Caso de estudio",
+      "obs": "RF-05",
+      "descripcion": "Reentrega idéntica de E3 al registro",
+      "esperado": "IGNORADO",
+      "obtenido": "IGNORADO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "reentrega de un evento ya recibido",
+      "coincide": true
+    },
+    {
+      "id": "4a",
+      "grupo": "Caso de estudio",
+      "obs": "RF-05",
+      "descripcion": "Reintento legítimo (intentos 1 y 2)",
+      "esperado": "VÁLIDO",
+      "obtenido": "VÁLIDO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "todas las comprobaciones se cumplen [Aₙ = 1e5c24675b6e]",
+      "coincide": true
+    },
+    {
+      "id": "4b",
+      "grupo": "Caso de estudio",
+      "obs": "RF-05",
+      "descripcion": "Duplicación (dos eventos con intento 1)",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V6"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V6",
+      "fallan": "V6",
+      "detalle": "RI2: duplicación en op-3 (intento 1) [Aₙ = 2677629033a1]",
+      "coincide": true
+    },
+    {
+      "id": "5a",
+      "grupo": "Caso de estudio",
+      "obs": "RF-05",
+      "descripcion": "Reverso tras fallo de ejecución",
+      "esperado": "VÁLIDO",
+      "obtenido": "VÁLIDO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "todas las comprobaciones se cumplen [Aₙ = 04cec0287376]",
+      "coincide": true
+    },
+    {
+      "id": "5b",
+      "grupo": "Caso de estudio",
+      "obs": "RF-05",
+      "descripcion": "Reverso sin fallo previo",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V6"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V6",
+      "fallan": "V6",
+      "detalle": "transición no permitida: COMPENSACION desde EJECUTADA [Aₙ = 778cecc59f93]",
+      "coincide": true
+    },
+    {
+      "id": "6a",
+      "grupo": "Caso de estudio",
+      "obs": "Obs. 1",
+      "descripcion": "Reconstrucción completa sin raíz del testigo",
+      "esperado": "NO_VERIFICABLE",
+      "obtenido": "NO_VERIFICABLE",
+      "paso": "V1",
+      "fallan": "sin evidencia: V1",
+      "detalle": "no se dispone de la raíz conservada por el testigo externo [Aₙ = 39aceda05560]",
+      "coincide": true
+    },
+    {
+      "id": "6b",
+      "grupo": "Caso de estudio",
+      "obs": "Obs. 1",
+      "descripcion": "Reconstrucción completa con raíz del testigo",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V1"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V1",
+      "fallan": "V1",
+      "detalle": "el punto de referencia no está incluido en la raíz del testigo [Aₙ = 39aceda05560]",
+      "coincide": true
+    },
+    {
+      "id": "C1",
+      "grupo": "Complementarias",
+      "obs": "Amenaza reordenamiento",
+      "descripcion": "Reordenamiento (E5 antes que E4)",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V4",
+        "V5"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V4",
+      "fallan": "V4, V5, V6",
+      "detalle": "E5: referencia a un evento posterior (E4) [Aₙ = e7a3f2a7d0c5]",
+      "coincide": true
+    },
+    {
+      "id": "C2",
+      "grupo": "Complementarias",
+      "obs": "Amenaza inserción",
+      "descripcion": "Inserción de un evento firmado con clave ajena",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V2",
+        "V3",
+        "V5"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V2",
+      "fallan": "V2, V3, V5, V6",
+      "detalle": "se esperaban 5 eventos y hay 6 [Aₙ = 2ab1140c4fe0]",
+      "coincide": true
+    },
+    {
+      "id": "C3",
+      "grupo": "Complementarias",
+      "obs": "Amenaza suplantación",
+      "descripcion": "Suplantación: E3 firmado por cuentas",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V3"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V3",
+      "fallan": "V3",
+      "detalle": "E3: firma inválida (antifraude) [Aₙ = 8b811cdbda03]",
+      "coincide": true
+    },
+    {
+      "id": "T1",
+      "grupo": "Obs. 1 – Testigo externo",
+      "obs": "Obs. 1",
+      "descripcion": "Historial íntegro, con raíz del testigo pero sin prueba de inclusión",
+      "esperado": "NO_VERIFICABLE",
+      "obtenido": "NO_VERIFICABLE",
+      "paso": "V1",
+      "fallan": "sin evidencia: V1",
+      "detalle": "no se dispone de la prueba de inclusión del punto de referencia [Aₙ = 8b811cdbda03]",
+      "coincide": true
+    },
+    {
+      "id": "T2",
+      "grupo": "Obs. 1 – Testigo externo",
+      "obs": "Obs. 1",
+      "descripcion": "Historial íntegro, sin punto de referencia (transacción no cerrada)",
+      "esperado": "NO_VERIFICABLE",
+      "obtenido": "NO_VERIFICABLE",
+      "paso": "V1",
+      "fallan": "sin evidencia: V1, V5",
+      "detalle": "no se dispone del punto de referencia de la transacción; Aₙ = 8b811cdbda03, sin valor comprometido con el que compararlo [Aₙ = 8b811cdbda03]",
+      "coincide": true
+    },
+    {
+      "id": "T3",
+      "grupo": "Obs. 1 – Testigo externo",
+      "obs": "Obs. 1",
+      "descripcion": "Historial íntegro, raíz de otro periodo (compromiso inválido)",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V1"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V1",
+      "fallan": "V1",
+      "detalle": "el punto de referencia no está incluido en la raíz del testigo [Aₙ = 8b811cdbda03]",
+      "coincide": true
+    },
+    {
+      "id": "T4",
+      "grupo": "Obs. 1 – Testigo externo",
+      "obs": "Obs. 1",
+      "descripcion": "Punto de referencia con la firma del registro alterada",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V1"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V1",
+      "fallan": "V1",
+      "detalle": "punto de referencia con firma inválida [Aₙ = 8b811cdbda03]",
+      "coincide": true
+    },
+    {
+      "id": "T5",
+      "grupo": "Obs. 1 – Testigo externo",
+      "obs": "Obs. 1",
+      "descripcion": "Prueba de inclusión mal formada",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V1"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V1",
+      "fallan": "V1",
+      "detalle": "prueba de inclusión mal formada [Aₙ = 8b811cdbda03]",
+      "coincide": true
+    },
+    {
+      "id": "T6",
+      "grupo": "Obs. 1 – Testigo externo",
+      "obs": "Obs. 1",
+      "descripcion": "Alteración de E3 sin raíz del testigo: la inconsistencia interna se sigue detectando",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V3",
+      "fallan": "V3, V4, V5; sin evidencia: V1",
+      "detalle": "E3: firma inválida (antifraude) [Aₙ = 622da2aa13ef]",
+      "coincide": true
+    },
+    {
+      "id": "D1",
+      "grupo": "Obs. 2 – RNF-06",
+      "obs": "RNF-06",
+      "descripcion": "El registro no conserva datos de negocio (32 datos emitidos, 13110 caracteres revisados)",
+      "esperado": "SIN DATOS DE NEGOCIO",
+      "obtenido": "SIN DATOS DE NEGOCIO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "ningún dato ni término de negocio en el contenido del registro",
+      "coincide": true
+    },
+    {
+      "id": "D2",
+      "grupo": "Obs. 2 – RNF-06",
+      "obs": "RNF-06",
+      "descripcion": "El registro rechaza un evento que incluye el campo data",
+      "esperado": "RECHAZADO",
+      "obtenido": "RECHAZADO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "estructura no conforme: campo no permitido: data",
+      "coincide": true
+    },
+    {
+      "id": "D3",
+      "grupo": "Obs. 2 – RNF-06",
+      "obs": "RNF-06",
+      "descripcion": "El verificador rechaza un historial con datos de negocio incrustados",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V2"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V2",
+      "fallan": "V2",
+      "detalle": "entrada mal formada: registro 1: campo no permitido: data",
+      "coincide": true
+    },
+    {
+      "id": "D4",
+      "grupo": "Obs. 2 – RNF-06",
+      "obs": "RNF-06 (limitación)",
+      "descripcion": "Ataque por diccionario sobre c de E3 (riesgo de 0,00 a 1,00)",
+      "esperado": "RECUPERADO",
+      "obtenido": "RECUPERADO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "«resultado=aprobada;riesgo=0.12» en 13 intentos",
+      "coincide": true
+    },
+    {
+      "id": "I1",
+      "grupo": "Obs. 3 – Reintentos",
+      "obs": "RF-05",
+      "descripcion": "Intentos 1, 2 y 3",
+      "esperado": "VÁLIDO",
+      "obtenido": "VÁLIDO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "todas las comprobaciones se cumplen [Aₙ = e9701ef6e34f]",
+      "coincide": true
+    },
+    {
+      "id": "I2",
+      "grupo": "Obs. 3 – Reintentos",
+      "obs": "RF-05",
+      "descripcion": "Intentos 1 y 3 (falta el 2)",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V6"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V6",
+      "fallan": "V6",
+      "detalle": "RI3: falta el intento 2 de op-3 [Aₙ = 0b9979edfed2]",
+      "coincide": true
+    },
+    {
+      "id": "I3",
+      "grupo": "Obs. 3 – Reintentos",
+      "obs": "RF-05",
+      "descripcion": "Primer y único intento con número 9",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V6"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V6",
+      "fallan": "V6",
+      "detalle": "RI3: la numeración de op-3 empieza en 9 [Aₙ = 630944e7553b]",
+      "coincide": true
+    },
+    {
+      "id": "I4",
+      "grupo": "Obs. 3 – Reintentos",
+      "obs": "RF-05",
+      "descripcion": "Dos eventos con intento 1 y distinto contenido",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V6"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V6",
+      "fallan": "V6",
+      "detalle": "RI2: duplicación en op-3 (intento 1); RI4: resultado inconsistente entre los intentos de op-3 [Aₙ = 6b0d1729bf70]",
+      "coincide": true
+    },
+    {
+      "id": "I5",
+      "grupo": "Obs. 3 – Reintentos",
+      "obs": "RF-05",
+      "descripcion": "Intentos 1 y 2 con resultados distintos",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V6"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V6",
+      "fallan": "V6",
+      "detalle": "RI4: resultado inconsistente entre los intentos de op-3 [Aₙ = 7c410449abdf]",
+      "coincide": true
+    },
+    {
+      "id": "I6",
+      "grupo": "Obs. 3 – Reintentos",
+      "obs": "RF-05",
+      "descripcion": "Intento 2 registrado antes que el 1 (entrega desordenada)",
+      "esperado": "VÁLIDO",
+      "obtenido": "VÁLIDO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "todas las comprobaciones se cumplen [Aₙ = 592ffaa34b3a]",
+      "coincide": true
+    },
+    {
+      "id": "I7",
+      "grupo": "Obs. 3 – Reintentos",
+      "obs": "RF-05",
+      "descripcion": "Intento 2 emitido por otro servicio",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V6"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V6",
+      "fallan": "V6",
+      "detalle": "RI1: intentos de op-3 emitidos por servicios distintos [Aₙ = 24049cc6b598]",
+      "coincide": true
+    },
+    {
+      "id": "X1",
+      "grupo": "Obs. 4 – Robustez",
+      "obs": "Obs. 4 A",
+      "descripcion": "Registro: evento de un emisor que no está en el directorio",
+      "esperado": "RECHAZADO",
+      "obtenido": "RECHAZADO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "emisor no reconocido en el directorio",
+      "coincide": true
+    },
+    {
+      "id": "X2",
+      "grupo": "Obs. 4 – Robustez",
+      "obs": "Obs. 4 A",
+      "descripcion": "Verificador: evento atribuido a un emisor desconocido",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V3"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V3",
+      "fallan": "V3, V4, V5",
+      "detalle": "E3: emisor no reconocido en el directorio (pagos-externos) [Aₙ = 5afdf7120be2]",
+      "coincide": true
+    },
+    {
+      "id": "X3",
+      "grupo": "Obs. 4 – Robustez",
+      "obs": "Obs. 4 B",
+      "descripcion": "Árbol de Merkle de un periodo sin transacciones",
+      "esperado": "e3b0c44298fc",
+      "obtenido": "e3b0c44298fc",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "MTH({}) = SHA-256() = e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 (RFC 9162, 2.1.1); prueba de inclusión: no existe (resultado controlado)",
+      "coincide": true
+    },
+    {
+      "id": "X4",
+      "grupo": "Obs. 4 – Robustez",
+      "obs": "Obs. 4 C",
+      "descripcion": "Registro: referencia causal inexistente",
+      "esperado": "PENDIENTE → RECHAZADO",
+      "obtenido": "PENDIENTE → RECHAZADO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "faltan 1 dependencia(s) causal(es); dependencias no recibidas dentro del plazo",
+      "coincide": true
+    },
+    {
+      "id": "X5",
+      "grupo": "Obs. 4 – Robustez",
+      "obs": "Obs. 4 C",
+      "descripcion": "Verificador: E4 con una referencia causal inexistente",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V4"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V4",
+      "fallan": "V4, V5",
+      "detalle": "E4: referencia causal inexistente (321cae896052); E5: referencia causal inexistente (14eb39d997e6) [Aₙ = 943faf3c8bc7]",
+      "coincide": true
+    },
+    {
+      "id": "X6",
+      "grupo": "Obs. 4 – Robustez",
+      "obs": "Obs. 4 D",
+      "descripcion": "Firma inválida (un byte alterado)",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V3"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V3",
+      "fallan": "V3",
+      "detalle": "E3: firma inválida (antifraude) [Aₙ = 8b811cdbda03]",
+      "coincide": true
+    },
+    {
+      "id": "X7",
+      "grupo": "Obs. 4 – Robustez",
+      "obs": "Obs. 4 D",
+      "descripcion": "Firma mal formada (10 bytes)",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V3"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V3",
+      "fallan": "V3",
+      "detalle": "E3: firma mal formada (antifraude) [Aₙ = 8b811cdbda03]",
+      "coincide": true
+    },
+    {
+      "id": "X8",
+      "grupo": "Obs. 4 – Robustez",
+      "obs": "Obs. 4 D",
+      "descripcion": "Registro: firma mal formada",
+      "esperado": "RECHAZADO",
+      "obtenido": "RECHAZADO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "firma mal formada",
+      "coincide": true
+    },
+    {
+      "id": "X9",
+      "grupo": "Obs. 4 – Robustez",
+      "obs": "Obs. 4 D",
+      "descripcion": "Verificador: evento mal formado (intento 0, referencia de 5 bytes, t vacío)",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V2"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V2",
+      "fallan": "V2",
+      "detalle": "entrada mal formada: registro 4: el campo t debe ser un texto no vacío",
+      "coincide": true
+    },
+    {
+      "id": "X10",
+      "grupo": "Obs. 4 – Robustez",
+      "obs": "Obs. 4 D",
+      "descripcion": "Registro: evento mal formado (intento 0)",
+      "esperado": "RECHAZADO",
+      "obtenido": "RECHAZADO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "estructura no conforme: el número de intento debe ser un entero mayor o igual que 1",
+      "coincide": true
+    },
+    {
+      "id": "X11",
+      "grupo": "Obs. 4 – Robustez",
+      "obs": "Obs. 4",
+      "descripcion": "Verificador: historial que no es una lista",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V2"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V2",
+      "fallan": "V2; sin evidencia: V1",
+      "detalle": "entrada mal formada: el historial no es una lista",
+      "coincide": true
+    },
+    {
+      "id": "X12",
+      "grupo": "Obs. 4 – Robustez",
+      "obs": "Obs. 4",
+      "descripcion": "Registro: cierre de una transacción desconocida",
+      "esperado": "ERROR CONTROLADO",
+      "obtenido": "ERROR CONTROLADO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "transacción TX-2026-999999 desconocida",
+      "coincide": true
+    },
+    {
+      "id": "O1",
+      "grupo": "Obs. 7 – Fuera de orden",
+      "obs": "Obs. 7",
+      "descripcion": "E4 llega antes que E3: queda pendiente y se acepta al llegar E3",
+      "esperado": "PENDIENTE → ACEPTADO",
+      "obtenido": "PENDIENTE → ACEPTADO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "faltan 1 dependencia(s) causal(es); al llegar E3 se liberan: E4",
+      "coincide": true
+    },
+    {
+      "id": "O2",
+      "grupo": "Obs. 7 – Fuera de orden",
+      "obs": "Obs. 7",
+      "descripcion": "Transacción con E4 recibido fuera de orden, una vez anclada",
+      "esperado": "VÁLIDO",
+      "obtenido": "VÁLIDO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "todas las comprobaciones se cumplen [Aₙ = 6c4a12471176]",
+      "coincide": true
+    },
+    {
+      "id": "O3",
+      "grupo": "Obs. 7 – Fuera de orden",
+      "obs": "Obs. 7",
+      "descripcion": "E3 no llega: el registro no permite cerrar la transacción mientras haya pendientes",
+      "esperado": "ERROR CONTROLADO",
+      "obtenido": "ERROR CONTROLADO",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "hay eventos pendientes de dependencias: E4, E5",
+      "coincide": true
+    },
+    {
+      "id": "O4",
+      "grupo": "Obs. 7 – Fuera de orden",
+      "obs": "Obs. 7",
+      "descripcion": "E3 no llega: E4 y E5 vencen y se notifican como incidencia",
+      "esperado": "E4, E5",
+      "obtenido": "E4, E5",
+      "paso": "—",
+      "fallan": "—",
+      "detalle": "incidencias por plazo: E4, E5 (plazo 5 recepciones, cola máx. 100)",
+      "coincide": true
+    },
+    {
+      "id": "O5",
+      "grupo": "Obs. 7 – Fuera de orden",
+      "obs": "Obs. 7",
+      "descripcion": "Transacción incompleta (sin E3) verificada tras su cierre",
+      "esperado": "INVÁLIDO",
+      "pasosEsperados": [
+        "V6"
+      ],
+      "obtenido": "INVÁLIDO",
+      "paso": "V6",
+      "fallan": "V6",
+      "detalle": "estado final no alcanzado (EN_VALIDACION) [Aₙ = d6638ca665a5]",
+      "coincide": true
+    }
+  ]
+}

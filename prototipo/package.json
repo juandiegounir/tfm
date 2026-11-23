@@ -1,0 +1,14 @@
+{
+  "name": "prototipo-marco-verificacion",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Prototipo de referencia del marco metodológico de verificación determinista (TFM, 3.ª entrega)",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "evaluar": "tsx src/evaluacion.ts",
+    "evaluar:detalle": "tsx src/evaluacion.ts -v",
+    "tipos": "tsc"
+  },
+  "devDependencies": { "tsx": "^4.19.0", "typescript": "^5.6.0", "@types/node": "^22.0.0" }
+}
