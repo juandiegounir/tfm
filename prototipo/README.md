@@ -4,10 +4,15 @@ Implementación en TypeScript del servicio emisor (algoritmo 1), el registro de 
 
 La evaluación del trabajo (apartado 4.5) no se hace a mano: cada escenario, cada prueba y el ejemplo resuelto del apartado 4.3 son pruebas ejecutables cuyo informe es la evidencia de los resultados.
 
+## Del modelo al código
+
+[`MODELO.md`](MODELO.md) acompaña al apartado 4.3 del trabajo: para cada ecuación indica la función que la implementa (con enlace a sus líneas), cómo lo hace paso a paso, dónde se usa en el marco y qué prueba la comprueba, y relaciona cada línea del pseudocódigo de los algoritmos 1 a 4 con su código.
+
 ## Estructura
 
 ```
 src/marco.ts                Modelo (ecuaciones 1–10), componentes y verificador
+MODELO.md                   Del modelo al código: cada ecuación y cada línea del pseudocódigo, con su función
 src/evaluacion.ts           Programa de evaluación: 55 casos con su resultado esperado (tablas 12 y 13)
 src/vectores.ts             Exporta los vectores del caso de estudio para la implementación en Python
 e2e/caracteristicas/        Casos de prueba en Gherkin (español), uno por escenario o prueba

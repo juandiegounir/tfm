@@ -63,7 +63,8 @@ export interface EvidenciaFirmada {
   readonly E: EventoVerificable;
   readonly sigma: Bytes;
 }
-export type Registro = [EventoVerificable, Bytes, Bytes]; // (E, σ, A)
+/** Registro Rᵢ = (Eᵢ, σᵢ, Aᵢ) que conserva el registro de evidencias, ecuación 7. */
+export type Registro = [EventoVerificable, Bytes, Bytes];
 
 /** Codificación canónica C(E), ecuación 2. */
 export function C(E: EventoVerificable): Bytes {
@@ -114,9 +115,13 @@ export const claveDemo = (nombre: string): KeyObject =>
 export type Directorio = ReadonlyMap<string, KeyObject>;
 export const crearDirectorio = (sk: Record<string, KeyObject>): Directorio =>
   new Map(Object.entries(sk).map(([s, k]) => [s, createPublicKey(k)]));
+/** Firma Ed25519 σ = Firma(sk, m), ecuación 6 (y σ_R de la ecuación 8). Ed25519 es determinista. */
 export const firmar = (k: KeyObject, m: Bytes) => sign(null, m, k);
 
-/** Resultado de comprobar una firma, distinguiendo las causas de fallo. */
+/**
+ * Comprobación de una firma de la ecuación 6 con la clave pública del directorio (supuesto S5).
+ * Distingue las causas de fallo para que el registro y el verificador informen del motivo.
+ */
 export type ComprobacionFirma =
   'VÁLIDA' | 'CLAVE_DESCONOCIDA' | 'MAL_FORMADA' | 'INVÁLIDA';
 export function comprobarFirma(
@@ -152,6 +157,10 @@ export class ServicioEmisor {
     private readonly sk: KeyObject,
   ) {}
 
+  /**
+   * Algoritmo 1. Emite el evento de la ecuación 1: calcula c = H(datos), forma E sin los datos
+   * de negocio, lo firma (ecuación 6) y conserva los datos en el almacenamiento local.
+   */
   emitir(
     t: string,
     e: string,
@@ -182,14 +191,17 @@ export class ServicioEmisor {
 }
 
 // ---------- registro de evidencias (algoritmos 2 y 3) ----------
+/** Punto de referencia K_t = (t, n, Aₙ, σ_R), ecuación 8. */
 export interface PuntoReferencia {
   t: string;
   n: number;
   A: Bytes;
   sigR: Bytes;
 }
+/** Cuerpo firmado del punto de referencia: L(t) || L(n) || L(Aₙ). */
 export const cuerpo = (t: string, n: number, A: Bytes) =>
   cat(L(Buffer.from(t)), L(Buffer.from(String(n))), L(A));
+/** K_t codificado: cuerpo || L(σ_R). Es la hoja del árbol de Merkle del periodo (ecuación 9). */
 export const Kbytes = (K: PuntoReferencia) => cat(cuerpo(K.t, K.n, K.A), L(K.sigR));
 
 export type EstadoRecepcion =
@@ -232,7 +244,11 @@ export class RegistroEvidencias {
     private readonly skRegistro: KeyObject,
   ) {}
 
-  /** Algoritmo 2: recepción de una evidencia firmada. Nunca lanza excepciones. */
+  /**
+   * Algoritmo 2: recepción de una evidencia firmada. Nunca lanza excepciones: devuelve ACEPTADO,
+   * IGNORADO, PENDIENTE, RECHAZADO o ANOMALÍA con su motivo. Si acepta el evento, incorpora los
+   * que esperaban por él y vence los pendientes caducados.
+   */
   registrar(E: unknown, sigma: unknown): Respuesta {
     this.reloj++;
     const r = this.evaluar(E, sigma, true);
@@ -251,12 +267,15 @@ export class RegistroEvidencias {
   }
 
   private evaluar(E: unknown, sigma: unknown, puedeEsperar: boolean): Respuesta {
+    // Algoritmo 2: E debe tener exactamente los campos de la ecuación 1 (RNF-06)
     const mal = validarEvento(E);
     if (mal) return { estado: 'RECHAZADO', motivo: `estructura no conforme: ${mal}` };
     const ev = E as EventoVerificable;
+    // la transacción no debe estar cerrada
     if (this.cerradas.has(ev.t))
       return { estado: 'RECHAZADO', motivo: 'transacción cerrada', e: ev.e };
-    const dg = d(ev);
+    const dg = d(ev); // ecuación 3
+    // mismo identificador: reentrega idéntica (IGNORADO) o contenido distinto (ANOMALÍA)
     const previo =
       this.tx.get(ev.t)?.ids.get(ev.e) ??
       this.pendientes.find(p => p.ev.E.t === ev.t && p.ev.E.e === ev.e)?.dg;
@@ -268,11 +287,13 @@ export class RegistroEvidencias {
             motivo: 'mismo identificador con distinto contenido',
             e: ev.e,
           };
+    // firma del emisor sobre d(E) con su clave del directorio (ecuación 6)
     const f = comprobarFirma(this.dir, ev.s, dg, sigma);
     if (f !== 'VÁLIDA') return { estado: 'RECHAZADO', motivo: TEXTO_FIRMA[f], e: ev.e };
 
     const h = this.tx.get(ev.t);
     const conocidos = h ? h.R.map(r => d(r[0])) : [];
+    // supuesto S4: todas las referencias de P deben estar ya registradas; si no, el evento espera
     const faltan = ev.P.filter(p => !conocidos.some(k => eq(k, p))).length;
     if (faltan) {
       if (!puedeEsperar) return { estado: 'PENDIENTE', motivo: '', e: ev.e };
@@ -289,6 +310,7 @@ export class RegistroEvidencias {
         e: ev.e,
       };
     }
+    // acumulación: A₀ (ecuación 4) para el primer evento y Aᵢ = acc(Aᵢ₋₁, d(Eᵢ)) (ecuación 5)
     const hist: Historial = h ?? { R: [], A: A0(ev.t), ids: new Map() };
     if (!h) this.tx.set(ev.t, hist);
     hist.A = acc(hist.A, dg);
@@ -475,6 +497,11 @@ export function anclarPeriodo(
 }
 
 // ---------- autómata M (tabla 9) ----------
+/**
+ * Estado del autómata: estado de la tabla 9 y validaciones ya recibidas, para aceptar
+ * FONDOS_OK y AUTORIZACION_OK en cualquier orden. `paso` es la función de transición δ;
+ * devuelve null si la transición no está permitida.
+ */
 type Estado = [string | null, Set<string>];
 const FINAL = new Set(['RECHAZADA', 'COMPENSADA', 'CONFIRMADA']);
 function paso([q, seen]: Estado, tau: string): Estado | null {
