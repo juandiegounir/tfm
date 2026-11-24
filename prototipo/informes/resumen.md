@@ -50,7 +50,7 @@
 | 08-ejemplo-resuelto.feature | 4.3.2 · Codificación canónica y resumen del evento E1 | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.2 ecuación-2 ecuación-3 | 17 | pasa |
 | 08-ejemplo-resuelto.feature | 4.3.4 · Cadena de acumulación de la ejecución normal | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.4 ecuación-4 ecuación-5 | 14 | pasa |
 | 08-ejemplo-resuelto.feature | 4.3.4 · Efecto de una manipulación y de otro orden válido sobre la cadena | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.4 | 16 | pasa |
-| 08-ejemplo-resuelto.feature | 4.3.5 · Firma de E1 y punto de referencia de TX-2026-000123 | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.5 ecuación-6 ecuación-8 | 18 | pasa |
+| 08-ejemplo-resuelto.feature | 4.3.5 · Firma de E1 y punto de referencia de la transacción | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.5 ecuación-6 ecuación-8 | 18 | pasa |
 | 08-ejemplo-resuelto.feature | 4.3.5 · Árbol de Merkle del periodo P1 y prueba de inclusión | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.5 ecuación-9 ecuación-10 | 17 | pasa |
-| 08-ejemplo-resuelto.feature | 4.3.6 · Verificación paso a paso de TX-2026-000123 | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.6 algoritmo-4 | 17 | pasa |
+| 08-ejemplo-resuelto.feature | 4.3.6 · Verificación paso a paso de la transacción de referencia | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.6 algoritmo-4 | 17 | pasa |
 | 08-ejemplo-resuelto.feature | Valores acumulados finales publicados en el anexo B | ejemplo-resuelto RNF-01 RNF-02 valores-publicados anexo-B | 14 | pasa |

@@ -19,7 +19,7 @@ for (const c of informe) {
     const ok = e.steps.every(s => s.result.status === 'passed');
     if (ok) pasan++;
     const tags = (e.tags ?? []).map(t => t.name.slice(1)).filter(t => !t.startsWith('tabla')).join(' ');
-    filas.push(`| ${c.uri.split('/').pop()} | ${e.name} | ${tags} | ${e.steps.length} | ${ok ? 'pasa' : 'FALLA'} |`);
+    filas.push(`| ${c.uri.split(/[\\/]/).pop() ?? c.uri} | ${e.name} | ${tags} | ${e.steps.length} | ${ok ? 'pasa' : 'FALLA'} |`);
   }
 }
 const md = [
