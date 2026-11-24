@@ -69,7 +69,7 @@ Característica: Ejemplo resuelto del caso de estudio (apartados 4.3.2 a 4.3.6)
     Y la entrada «EVT» || C(E1) tiene 109 bytes
     Y el resumen d(E1) de "TX-2026-000123" es "ef95dee9015803df2266eb9bf35c272ae8005afd5ee2d83670b989fc75e20b5d"
 
-  @apartado-4.3.4 @ecuación-4 @ecuación-5 @tabla-10
+  @apartado-4.3.4 @ecuación-4 @ecuación-5
   Escenario: 4.3.4 · Cadena de acumulación de la ejecución normal
     Entonces la cadena de acumulación de "TX-2026-000123" es:
       | i | evento | d(Eᵢ)                                                            | Aᵢ                                                               |

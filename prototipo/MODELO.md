@@ -1,6 +1,6 @@
 # Del modelo al código
 
-Este documento acompaña al apartado 4.3 del trabajo. Para cada ecuación del modelo indica qué función del prototipo la implementa, cómo lo hace paso a paso, en qué componente y paso del marco se usa y qué prueba la comprueba. Al final relaciona cada línea del pseudocódigo de los algoritmos 1 a 4 (apartado 4.4.1) con el código que la ejecuta.
+Este documento acompaña al apartado 4.3 del trabajo. Para cada ecuación del modelo indica qué función del prototipo la implementa, cómo lo hace paso a paso, en qué componente y paso del marco se usa y qué prueba la comprueba. Al final relaciona cada línea del pseudocódigo de los algoritmos 1 a 4 (apartado 4.4.1) con el código que la ejecuta. La tabla 10 del trabajo (apartado 4.5.2) resume esta correspondencia.
 
 Todo el código está en [`src/marco.ts`](src/marco.ts). Los valores concretos del caso de estudio no se calculan aquí: los obtiene y comprueba la prueba ejecutable del ejemplo resuelto, [`e2e/caracteristicas/08-ejemplo-resuelto.feature`](e2e/caracteristicas/08-ejemplo-resuelto.feature), cuyos pasos ([`e2e/pasos/ejemplo.ts`](e2e/pasos/ejemplo.ts)) recalculan cada valor intermedio sin usar `marco.ts`. La implementación independiente en Python ([`../python/marco.py`](../python/marco.py)) sigue el mismo orden.
 

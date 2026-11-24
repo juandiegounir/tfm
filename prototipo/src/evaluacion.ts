@@ -313,7 +313,7 @@ for (const [n, obt, esp] of VECTORES)
     obt,
   );
 
-// --- Escenarios del caso de estudio (tabla 10), con el verificador corregido ---
+// --- Escenarios del caso de estudio (tabla 11), con el verificador corregido ---
 const G = 'Caso de estudio';
 caso('1', G, 'RF-01–RF-06', 'Ejecución normal', 'VÁLIDO', () =>
   verificar(entrada('TX-2026-000123', R123), DIR),

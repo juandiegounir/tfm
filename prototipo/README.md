@@ -2,7 +2,7 @@
 
 Implementación en TypeScript del servicio emisor (algoritmo 1), el registro de evidencias (algoritmos 2 y 3), el testigo externo (raíz MTH de RFC 9162) y el verificador (algoritmo 4, pasos V1–V7) descritos en el capítulo 4 del trabajo. Las primitivas criptográficas (SHA-256 y Ed25519) proceden del módulo estándar `node:crypto`; el marco no usa bibliotecas externas.
 
-La evaluación del trabajo (apartado 4.5) no se hace a mano: cada escenario, cada prueba y el ejemplo resuelto del apartado 4.3 son pruebas ejecutables cuyo informe es la evidencia de los resultados.
+El apartado 4.5 del trabajo describe este prototipo, y la evaluación (apartado 4.6) no se hace a mano: cada escenario, cada prueba y el ejemplo resuelto del apartado 4.3 son pruebas ejecutables cuyo informe es la evidencia de los resultados.
 
 ## Del modelo al código
 
@@ -71,7 +71,7 @@ Cada escenario empieza con un registro, un testigo y unos servicios nuevos, de m
 | `05-reintentos.feature` | I1–I7 | Tabla 13 |
 | `06-entradas-invalidas.feature` | X1–X12 | Tabla 13 |
 | `07-fuera-de-orden.feature` | O1–O5 | Tabla 13 |
-| `08-ejemplo-resuelto.feature` | Codificación y resumen de E1, cadena de acumulación, efecto de una manipulación, firma y punto de referencia, árbol de Merkle, verificación paso a paso y valores A₅ publicados | Apartados 4.3.2 a 4.3.6, tabla 10 y anexo B |
+| `08-ejemplo-resuelto.feature` | Codificación y resumen de E1, cadena de acumulación, efecto de una manipulación, firma y punto de referencia, árbol de Merkle, verificación paso a paso y valores A₅ publicados | Apartados 4.3.2 a 4.3.6 y anexo B |
 
 El ejemplo resuelto recalcula en los pasos, de forma independiente de `marco.ts`, las codificaciones de cada campo, los nodos del árbol y el recorrido de la prueba de inclusión, y los contrasta con lo que producen los componentes del marco.
 

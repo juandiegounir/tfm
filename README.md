@@ -25,9 +25,9 @@ figuras/                        Fuentes y renderizados de las figuras del trabaj
 | Parte del trabajo | Dónde está en el repositorio |
 |---|---|
 | Modelo criptográfico (apartado 4.3, ecuaciones 1–10): cada ecuación con su función, uso y prueba | [`prototipo/MODELO.md`](prototipo/MODELO.md), sobre [`prototipo/src/marco.ts`](prototipo/src/marco.ts) y [`python/marco.py`](python/marco.py) |
-| Ejemplo resuelto del caso de estudio (apartados 4.3.2–4.3.6, tabla 10) | [`prototipo/e2e/caracteristicas/08-ejemplo-resuelto.feature`](prototipo/e2e/caracteristicas/08-ejemplo-resuelto.feature) |
-| Algoritmos 1–4 y autómata M (apartados 4.3.3 y 4.4.1): del pseudocódigo al código | [`prototipo/MODELO.md#algoritmos`](prototipo/MODELO.md#algoritmos) |
-| Escenarios y pruebas de la evaluación (apartado 4.5, tablas 11–13) | [`prototipo/e2e/caracteristicas/`](prototipo/e2e/caracteristicas) y [`prototipo/src/evaluacion.ts`](prototipo/src/evaluacion.ts) |
+| Ejemplo resuelto del caso de estudio (apartados 4.3.2–4.3.6) | [`prototipo/e2e/caracteristicas/08-ejemplo-resuelto.feature`](prototipo/e2e/caracteristicas/08-ejemplo-resuelto.feature) |
+| Prototipo de referencia (apartado 4.5): algoritmos 1–4 y autómata M, del pseudocódigo al código (tabla 10) | [`prototipo/MODELO.md#algoritmos`](prototipo/MODELO.md#algoritmos) |
+| Escenarios y pruebas de la evaluación (apartado 4.6, tablas 11–13) | [`prototipo/e2e/caracteristicas/`](prototipo/e2e/caracteristicas) y [`prototipo/src/evaluacion.ts`](prototipo/src/evaluacion.ts) |
 | Comparación entre lenguajes (RNF-01, tabla 14) | [`python/vectores.py`](python/vectores.py) |
 | Figuras 2 y 3 | [`figuras/`](figuras) |
 
