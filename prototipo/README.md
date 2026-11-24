@@ -8,6 +8,10 @@ El apartado 4.5 del trabajo describe este prototipo, y la evaluación (apartado 
 
 [`MODELO.md`](MODELO.md) acompaña al apartado 4.3 del trabajo: para cada ecuación indica la función que la implementa (con enlace a sus líneas), cómo lo hace paso a paso, dónde se usa en el marco y qué prueba la comprueba, y relaciona cada línea del pseudocódigo de los algoritmos 1 a 4 con su código.
 
+## Datos de prueba
+
+Las transacciones, los eventos, los datos de negocio y las claves del caso de estudio son las entradas de las pruebas y están descritos en [`e2e/DATOS.md`](e2e/DATOS.md). El trabajo no los reproduce: remite a ese documento.
+
 ## Estructura
 
 ```

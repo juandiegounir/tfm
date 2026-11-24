@@ -87,7 +87,7 @@ Característica: Ejemplo resuelto del caso de estudio (apartados 4.3.2 a 4.3.6)
     Y con "E2" y "E3" de "TX-2026-000123" registrados en orden inverso, el valor acumulado empieza por "f06cedbc3be8"
 
   @apartado-4.3.5 @ecuación-6 @ecuación-8
-  Escenario: 4.3.5 · Firma de E1 y punto de referencia de TX-2026-000123
+  Escenario: 4.3.5 · Firma de E1 y punto de referencia de la transacción
     Entonces la clave pública del servicio "orquestador" empieza por "e7a2e082848ba34f"
     Y la firma σ del evento "E1" de "TX-2026-000123" empieza por "c8da718fa7265f96" y es válida con esa clave
     Y el cuerpo firmado del punto de referencia de "TX-2026-000123" tiene 59 bytes
@@ -116,7 +116,7 @@ Característica: Ejemplo resuelto del caso de estudio (apartados 4.3.2 a 4.3.6)
       | h₅      | derecha   | 2a33458b76de9c64fef7267ded3e2aa39f6417b783aee702744131c518c281bd |
 
   @apartado-4.3.6 @algoritmo-4
-  Escenario: 4.3.6 · Verificación paso a paso de TX-2026-000123
+  Escenario: 4.3.6 · Verificación paso a paso de la transacción de referencia
     Cuando el auditor verifica "TX-2026-000123" con la raíz del testigo
     Entonces al recorrer la prueba de inclusión de "TX-2026-000123" se obtiene:
       | x  | valor                                                            |
