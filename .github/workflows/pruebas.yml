@@ -1,9 +1,10 @@
 # Integración continua del prototipo de referencia.
 # En cada push y pull request ejecuta, en Linux, Windows y macOS:
 #   1. la comprobación de tipos del prototipo (TypeScript estricto);
-#   2. las pruebas de extremo a extremo en Gherkin (Cucumber), con su informe HTML y JUnit;
-#   3. la evaluación de los 55 casos del caso de estudio;
-#   4. la comparación de los 40 vectores entre las implementaciones en TypeScript y en Python (RNF-01).
+#   2. el análisis estático del código: ESLint con typescript-eslint y Ruff para Python;
+#   3. las pruebas de extremo a extremo en Gherkin (Cucumber), con su informe HTML y JUnit;
+#   4. la evaluación de los 55 casos del caso de estudio;
+#   5. la comparación de los 40 vectores entre las implementaciones en TypeScript y en Python (RNF-01).
 name: pruebas
 
 on:
@@ -38,11 +39,21 @@ jobs:
       - name: Instalar dependencias
         run: |
           npm ci --prefix prototipo
-          python -m pip install -r python/requirements.txt
+          python -m pip install -r python/requirements.txt ruff
 
       - name: Comprobar tipos
         working-directory: prototipo
         run: npm run tipos
+
+      - name: Análisis estático de TypeScript (ESLint + typescript-eslint)
+        working-directory: prototipo
+        run: npm run lint
+
+      - name: Análisis estático de Python (Ruff)
+        working-directory: python
+        run: |
+          ruff check .
+          ruff format --check .
 
       - name: Pruebas de extremo a extremo (Cucumber)
         working-directory: prototipo

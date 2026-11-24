@@ -9,7 +9,7 @@ interface Paso { result: { status: string } }
 interface Elemento { name: string; type: string; tags?: { name: string }[]; steps: Paso[] }
 interface Caracteristica { name: string; uri: string; tags?: { name: string }[]; elements: Elemento[] }
 
-const informe: Caracteristica[] = JSON.parse(readFileSync('informes/e2e.json', 'utf8'));
+const informe = JSON.parse(readFileSync('informes/e2e.json', 'utf8')) as Caracteristica[];
 const filas: string[] = [];
 let total = 0, pasan = 0, pasos = 0;
 for (const c of informe) {

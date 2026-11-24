@@ -9,6 +9,7 @@ la cadena de acumulación (ec. 4 y 5), las firmas Ed25519 (ec. 6), el punto de r
 
 SHA-256 procede de hashlib (biblioteca estándar) y Ed25519 de la biblioteca cryptography.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -130,8 +131,8 @@ def prueba_inclusion(D: list[bytes], i: int) -> list[tuple[bool, bytes]]:
         return []
     k = _k(len(D))
     if i < k:
-        return prueba_inclusion(D[:k], i) + [(False, MTH(D[k:]))]
-    return prueba_inclusion(D[k:], i - k) + [(True, MTH(D[:k]))]
+        return [*prueba_inclusion(D[:k], i), (False, MTH(D[k:]))]
+    return [*prueba_inclusion(D[k:], i - k), (True, MTH(D[:k]))]
 
 
 def comprobar_inclusion(hoja: bytes, prueba: list[tuple[bool, bytes]], raiz: bytes) -> bool:

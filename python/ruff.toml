@@ -1,0 +1,12 @@
+# Análisis estático de la implementación en Python con Ruff (equivalente a ESLint).
+line-length = 100
+target-version = "py311"
+
+[lint]
+# E/W: pycodestyle · F: pyflakes · I: orden de importaciones · B: bugbear · UP: sintaxis moderna
+# N: nombres PEP 8 · S: seguridad (bandit) · SIM: simplificaciones · RUF: reglas propias de Ruff
+select = ["E", "W", "F", "I", "B", "UP", "N", "S", "SIM", "RUF"]
+ignore = [
+  "N802", "N803", "N806", "N815", # nombres como C, H, MTH, A0 o sigR siguen la notación del modelo formal
+  "RUF001", "RUF002", "RUF003",   # σ, τ y subíndices aparecen a propósito en textos y comentarios
+]

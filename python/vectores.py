@@ -5,6 +5,7 @@ valor no coincide.
 
 Ejecución:  python -m pip install -r requirements.txt  &&  python vectores.py
 """
+
 from __future__ import annotations
 
 import json
@@ -14,6 +15,7 @@ from pathlib import Path
 from marco import (
     MTH,
     Evento,
+    H,
     Historial,
     PuntoReferencia,
     clave_demo,
@@ -22,7 +24,6 @@ from marco import (
     prueba_inclusion,
     publica,
     verificar_firma,
-    H,
 )
 
 SERVICIOS = ["orquestador", "cuentas", "antifraude", "registro"]
@@ -49,9 +50,25 @@ E5 = ("E5", "orquestador", "CONFIRMACION", "op-5", 1, ["E4"], "estado=confirmada
 
 def reverso(indebido: bool):
     e4r = (
-        ("E4", "cuentas", "EJECUCION_OK", "op-4", 1, ["E2", "E3"], "debito=0001;abono=0002;resultado=ok")
+        (
+            "E4",
+            "cuentas",
+            "EJECUCION_OK",
+            "op-4",
+            1,
+            ["E2", "E3"],
+            "debito=0001;abono=0002;resultado=ok",
+        )
         if indebido
-        else ("E4", "cuentas", "EJECUCION_FALLO", "op-4", 1, ["E2", "E3"], "abono=rechazado_por_entidad_destino")
+        else (
+            "E4",
+            "cuentas",
+            "EJECUCION_FALLO",
+            "op-4",
+            1,
+            ["E2", "E3"],
+            "abono=rechazado_por_entidad_destino",
+        )
     )
     return [
         E1,
@@ -64,7 +81,11 @@ def reverso(indebido: bool):
 
 TRANSACCIONES = [
     ("TX-2026-000123", [E1, E2, e3(), e4(), E5], None),
-    ("TX-2026-000124", [E1, E2, e3(), e3("E3b", 2), e4("E3b"), E5], ["E1", "E2", "E3", "E3", "E3b", "E4", "E5"]),
+    (
+        "TX-2026-000124",
+        [E1, E2, e3(), e3("E3b", 2), e4("E3b"), E5],
+        ["E1", "E2", "E3", "E3", "E3b", "E4", "E5"],
+    ),
     ("TX-2026-000125", reverso(False), None),
     ("TX-2026-000126", [E1, E2, e3(), e3("E3d", 1), e4(), E5], None),
     ("TX-2026-000127", reverso(True), None),
@@ -77,7 +98,9 @@ def construir():
     for t, specs, entrega in TRANSACCIONES:
         ev: dict[str, tuple[Evento, bytes]] = {}
         for e, s, tau, k, a, deps, datos in specs:
-            E = Evento(t, e, s, tau, k, a, tuple(ev[x][0].d() for x in deps), H(datos.encode("utf-8")))
+            E = Evento(
+                t, e, s, tau, k, a, tuple(ev[x][0].d() for x in deps), H(datos.encode("utf-8"))
+            )
             ev[e] = (E, firmar(SK[s], E.d()))
             if t == "TX-2026-000123":
                 eventos_123.append(ev[e])
@@ -109,7 +132,7 @@ def main() -> int:
 
     for s in SERVICIOS:
         comparar(f"pk({s})", PK[s], ts["claves_publicas"][s])
-    for (E, sigma), te in zip(ev123, ts["eventos"]):
+    for (E, sigma), te in zip(ev123, ts["eventos"], strict=True):
         comparar(f"c de {E.e}", E.c, te["c"])
         comparar(f"C({E.e})", E.C(), te["C"])
         comparar(f"d({E.e})", E.d(), te["d"])
@@ -122,8 +145,11 @@ def main() -> int:
     for t in K:
         comparar(f"A₅ de {t}", K[t].A, ts["A5"][t])
     comparar("Raíz del periodo", raiz, ts["raiz"])
-    comparar("Prueba de inclusión", ";".join(("I" if izq else "D") + h.hex() for izq, h in pr),
-             ";".join(("I" if p["izq"] else "D") + p["h"] for p in ts["prueba"]))
+    comparar(
+        "Prueba de inclusión",
+        ";".join(("I" if izq else "D") + h.hex() for izq, h in pr),
+        ";".join(("I" if p["izq"] else "D") + p["h"] for p in ts["prueba"]),
+    )
     comparar("MTH de un periodo vacío", MTH([]), ts["mth_vacio"])
 
     # comprobaciones funcionales con valores calculados en Python
@@ -143,4 +169,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    # La salida incluye σ y subíndices: en Windows la consola usa cp1252 si no se fuerza UTF-8.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     sys.exit(main())

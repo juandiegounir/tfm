@@ -6,6 +6,7 @@ import assert from 'node:assert/strict';
 import { DataTable, Given, Then, When } from '@cucumber/cucumber';
 import {
   A0,
+  EvidenciaFirmada,
   EntradaVerificacion,
   H,
   MTH,
@@ -27,11 +28,11 @@ const lista = (s: string) => s.split(',').map(x => x.trim()).filter(Boolean);
 
 // ---------------------------------------------------------------- saga y registro (Dado)
 Given('que la saga {string} emite los eventos:', function (this: Mundo, t: string, tabla: DataTable) {
-  const ev = new Map();
+  const ev = new Map<string, EvidenciaFirmada>();
   for (const f of tabla.hashes()) {
     const P = lista(f['depende de']).map(x => {
       assert.ok(ev.has(x), `${f.e} depende de ${x}, que no se ha emitido`);
-      return d(ev.get(x).E);
+      return d(ev.get(x)!.E);
     });
     ev.set(f.e, this.servicio(f.servicio).emitir(t, f.e, f.tipo, f.clave, Number(f.intento), P, f.datos));
     this.datosEmitidos.push(f.datos);
@@ -55,6 +56,7 @@ Given('el registro cierra {string} y ancla el periodo {string} en el testigo', f
   const r = anclarPeriodo(this.registro, this.testigo, p, lista(txs));
   assert.ok(r.ok, r.ok ? '' : r.motivo);
   this.anclajes.set(p, r.valor);
+  this.txsPeriodo.set(p, lista(txs));
   for (const t of lista(txs)) {
     this.periodoDe.set(t, p);
     this.K.set(t, r.valor.K[t]);
@@ -94,7 +96,7 @@ When('el atacante altera un byte de la firma del punto de referencia de {string}
 });
 When('el atacante incrusta el campo {string} en el evento {string} de {string}', function (this: Mundo, campo: string, e: string, t: string) {
   const R = this.historial(t), i = this.posicion(t, e);
-  R[i] = [{ ...R[i][0], [campo]: this.datosEmitidos[0] } as never, R[i][1], R[i][2]];
+  R[i] = [{ ...R[i][0], [campo]: this.datosEmitidos[0] }, R[i][1], R[i][2]];
 });
 When('el atacante atribuye el evento {string} de {string} al servicio {string}', function (this: Mundo, e: string, t: string, s: string) {
   const R = this.historial(t), i = this.posicion(t, e);
@@ -123,12 +125,12 @@ When('el atacante deja el evento {string} de {string} con intento 0, una referen
 When('el atacante, con el control del registro y las claves de todos los servicios, reconstruye {string} con los datos del evento {string} cambiados a {string}', function (this: Mundo, t: string, e: string, datos: string) {
   // El atacante usa un registro propio con la clave del registro y reemite todos los eventos con las claves de los servicios.
   const regAtacante = new RegistroEvidencias(this.dir, this.sk.registro);
-  const nuevos = new Map();
+  const nuevos = new Map<string, EvidenciaFirmada>();
   for (const [id, ev] of this.emitidas.get(t)!) {
     const E = ev.E;
     const P = E.P.map(p => {
       const orig = [...this.emitidas.get(t)!.entries()].find(([, x]) => d(x.E).equals(p))![0];
-      return d(nuevos.get(orig).E);
+      return d(nuevos.get(orig)!.E);
     });
     const dat = id === e ? datos : this.servicio(E.s).datos(t, id)!;
     const n = this.servicio(E.s).emitir(t, id, E.tau, E.k, E.a, P, dat);

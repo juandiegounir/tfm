@@ -43,6 +43,8 @@ export class Mundo extends World {
   ultimaRespuesta?: Respuesta;
   anclajes = new Map<string, Anclaje>();
   periodoDe = new Map<string, string>();
+  /** Transacciones de cada periodo, en el orden de sus hojas en el árbol de Merkle. */
+  txsPeriodo = new Map<string, string[]>();
   /** Historial conservado tal como lo verá el auditor (el atacante puede modificarlo). */
   historiales = new Map<string, Registro[]>();
   K = new Map<string, PuntoReferencia>();

@@ -6,7 +6,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import {
   A0,
-  Bytes,
   EntradaVerificacion,
   EvidenciaFirmada,
   H,
@@ -27,6 +26,12 @@ import {
   prueba,
   verificar,
 } from './marco.ts';
+
+/** Devuelve el valor o detiene la evaluación si falta: la evaluación no puede seguir sin él. */
+function exigir<T>(v: T | undefined, que: string): T {
+  if (v === undefined) throw new Error(`falta ${que}`);
+  return v;
+}
 
 // ---------- configuración: claves de demostración, directorio y servicios ----------
 const NOMBRES = ['orquestador', 'cuentas', 'antifraude'];
@@ -242,7 +247,7 @@ const TXS1 = [
 const anc = anclarPeriodo(reg, testigo, 'P1', TXS1);
 if (!anc.ok) throw new Error(anc.motivo);
 const P1 = anc.valor;
-const raizTestigo = testigo.raiz('P1')!; // el auditor la obtiene del testigo, no del registro
+const raizTestigo = exigir(testigo.raiz('P1'), 'raíz de P1'); // el auditor la obtiene del testigo, no del registro
 
 /** Verificación con todas las evidencias de P1 salvo las que se indiquen. */
 const entrada = (
@@ -319,7 +324,9 @@ alterado[2] = [
   R123[2][1],
   R123[2][2],
 ];
-const datosOriginales = { E3: SERV.antifraude.datos('TX-2026-000123', 'E3')! };
+const datosOriginales = {
+  E3: exigir(SERV.antifraude.datos('TX-2026-000123', 'E3'), 'datos de E3'),
+};
 caso(
   '2',
   G,
@@ -581,7 +588,7 @@ caso(
   () =>
     verificar(
       entrada('TX-2026-000123', [
-        [conData as never, R123[0][1], R123[0][2]],
+        [conData, R123[0][1], R123[0][2]],
         ...R123.slice(1),
       ]),
       DIR,
@@ -666,7 +673,7 @@ tx2(
 
 // Obs. 7: eventos fuera de orden en el registro
 const O1 = tx2('TX-2026-000210', normal(), ['E1', 'E2', 'E4', 'E3', 'E5']);
-const O2 = tx2('TX-2026-000211', normal(), ['E1', 'E2', 'E4', 'E5']); // E3 no llega nunca
+tx2('TX-2026-000211', normal(), ['E1', 'E2', 'E4', 'E5']); // E3 no llega nunca
 const cierreAntes = reg2.cerrar('TX-2026-000211');
 reg2.avanzarReloj(PLAZO_PENDIENTE + 1);
 const incid = reg2.incidencias.filter(i => i.motivo.includes('plazo')).map(i => i.e);
@@ -697,7 +704,7 @@ const rCerrarDesc = reg2.cerrar('TX-2026-999999');
 const anc2 = anclarPeriodo(reg2, testigo, 'P2', TX2);
 if (!anc2.ok) throw new Error(anc2.motivo);
 const P2 = anc2.valor;
-const raiz2 = testigo.raiz('P2')!;
+const raiz2 = exigir(testigo.raiz('P2'), 'raíz de P2');
 const entrada2 = (
   t: string,
   extra: Partial<EntradaVerificacion> = {},
@@ -920,8 +927,8 @@ comprobacion(
 );
 
 const G7 = 'Obs. 7 – Fuera de orden';
-const rE4 = O1.respuestas.find(r => r.e === 'E4')!;
-const rE3 = O1.respuestas.find(r => r.e === 'E3')!;
+const rE4 = exigir(O1.respuestas.find(r => r.e === 'E4'), 'respuesta a E4');
+const rE3 = exigir(O1.respuestas.find(r => r.e === 'E3'), 'respuesta a E3');
 comprobacion(
   'O1',
   G7,
@@ -966,7 +973,6 @@ caso(
   () => verificar(entrada2('TX-2026-000211'), DIR),
   ['V6'],
 );
-void O2;
 
 // ---------- informe ----------
 let fallos = 0;

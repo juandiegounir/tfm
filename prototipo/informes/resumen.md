@@ -1,6 +1,6 @@
 # Resumen de las pruebas de extremo a extremo
 
-44/44 escenarios pasan (377 pasos). Informe completo: informes/e2e.html.
+50/50 escenarios pasan (472 pasos). Informe completo: informes/e2e.html.
 
 | Característica | Escenario | Trazabilidad | Pasos | Estado |
 |---|---|---|---|---|
@@ -47,4 +47,10 @@
 | 06-entradas-invalidas.feature | X12 · El registro no cierra una transacción desconocida | X12 | 7 | pasa |
 | 07-fuera-de-orden.feature | O1 y O2 · E4 llega antes que E3, queda pendiente y la transacción se verifica después | supuesto-S4 O1 O2 RF-04 | 9 | pasa |
 | 07-fuera-de-orden.feature | O3, O4 y O5 · E3 no llega nunca | supuesto-S4 O3 O4 O5 | 12 | pasa |
-| 08-reproducibilidad.feature | Periodo P1 con las cinco transacciones del caso de estudio | vectores RNF-01 RNF-02 | 18 | pasa |
+| 08-ejemplo-resuelto.feature | 4.3.2 · Codificación canónica y resumen del evento E1 | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.2 ecuación-2 ecuación-3 | 17 | pasa |
+| 08-ejemplo-resuelto.feature | 4.3.4 · Cadena de acumulación de la ejecución normal | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.4 ecuación-4 ecuación-5 | 14 | pasa |
+| 08-ejemplo-resuelto.feature | 4.3.4 · Efecto de una manipulación y de otro orden válido sobre la cadena | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.4 | 16 | pasa |
+| 08-ejemplo-resuelto.feature | 4.3.5 · Firma de E1 y punto de referencia de TX-2026-000123 | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.5 ecuación-6 ecuación-8 | 18 | pasa |
+| 08-ejemplo-resuelto.feature | 4.3.5 · Árbol de Merkle del periodo P1 y prueba de inclusión | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.5 ecuación-9 ecuación-10 | 17 | pasa |
+| 08-ejemplo-resuelto.feature | 4.3.6 · Verificación paso a paso de TX-2026-000123 | ejemplo-resuelto RNF-01 RNF-02 apartado-4.3.6 algoritmo-4 | 17 | pasa |
+| 08-ejemplo-resuelto.feature | Valores acumulados finales publicados en el anexo B | ejemplo-resuelto RNF-01 RNF-02 valores-publicados anexo-B | 14 | pasa |

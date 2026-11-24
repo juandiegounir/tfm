@@ -67,7 +67,7 @@ export type Registro = [EventoVerificable, Bytes, Bytes]; // (E, σ, A)
 
 /** Codificación canónica C(E), ecuación 2. */
 export function C(E: EventoVerificable): Bytes {
-  const refs = cat(u32(E.P.length), ...[...E.P].sort(Buffer.compare));
+  const refs = cat(u32(E.P.length), ...[...E.P].sort((x, y) => Buffer.compare(x, y)));
   return cat(...[E.t, E.e, E.s, E.tau, E.k, E.a].map(f => L(enc(f))), L(refs), L(E.c));
 }
 /** Resumen del evento d(E), ecuación 3. */
@@ -88,13 +88,13 @@ export function validarEvento(x: unknown): string | null {
   if (extra.length) return `campo no permitido: ${extra.join(', ')}`;
   for (const c of CAMPOS) if (!(c in o)) return `falta el campo ${c}`;
   for (const c of ['t', 'e', 's', 'tau', 'k'] as const)
-    if (typeof o[c] !== 'string' || (o[c] as string).length === 0)
+    if (typeof o[c] !== 'string' || o[c].length === 0)
       return `el campo ${c} debe ser un texto no vacío`;
-  if (!Number.isInteger(o.a) || (o.a as number) < 1)
+  if (typeof o.a !== 'number' || !Number.isInteger(o.a) || o.a < 1)
     return 'el número de intento debe ser un entero mayor o igual que 1';
   if (!Array.isArray(o.P) || !o.P.every(esResumen))
     return 'P debe ser una lista de resúmenes de 32 bytes';
-  const P = o.P as Bytes[];
+  const P = o.P;
   if (new Set(P.map(p => p.toString('hex'))).size !== P.length)
     return 'P contiene referencias repetidas';
   if (!esResumen(o.c)) return 'c debe ser un resumen de 32 bytes';
@@ -393,12 +393,21 @@ export type Prueba = { izq: boolean; h: Bytes }[];
 /** Prueba de inclusión de la hoja i; undefined si el índice no existe. */
 export function prueba(D: readonly Bytes[], i: number): Prueba | undefined {
   if (!Number.isInteger(i) || i < 0 || i >= D.length) return undefined;
+  return ruta(D, i);
+}
+/** Camino de la hoja i hasta la raíz (RFC 9162, apartado 2.1.3); i es un índice válido. */
+function ruta(D: readonly Bytes[], i: number): Prueba {
   if (D.length === 1) return [];
   const k = corte(D.length);
   return i < k
-    ? [...prueba(D.slice(0, k), i)!, { izq: false, h: MTH(D.slice(k)) }]
-    : [...prueba(D.slice(k), i - k)!, { izq: true, h: MTH(D.slice(0, k)) }];
+    ? [...ruta(D.slice(0, k), i), { izq: false, h: MTH(D.slice(k)) }]
+    : [...ruta(D.slice(k), i - k), { izq: true, h: MTH(D.slice(0, k)) }];
 }
+const esNodoPrueba = (s: unknown): s is Prueba[number] =>
+  typeof s === 'object' &&
+  s !== null &&
+  typeof (s as { izq?: unknown }).izq === 'boolean' &&
+  esResumen((s as { h?: unknown }).h);
 export type ComprobacionInclusion = 'INCLUIDO' | 'NO_INCLUIDO' | 'PRUEBA_MAL_FORMADA';
 export function comprobarInclusion(
   b: Bytes,
@@ -407,10 +416,10 @@ export function comprobarInclusion(
 ): ComprobacionInclusion {
   if (
     !Array.isArray(pr) ||
-    !pr.every(s => s && typeof s.izq === 'boolean' && esResumen(s.h))
+    !pr.every(esNodoPrueba)
   )
     return 'PRUEBA_MAL_FORMADA';
-  const r = (pr as Prueba).reduce(
+  const r = pr.reduce(
     (h, s) => (s.izq ? nodo(s.h, h) : nodo(h, s.h)),
     hoja(b),
   );
@@ -460,7 +469,7 @@ export function anclarPeriodo(
       periodo,
       K,
       raiz,
-      pruebas: Object.fromEntries(txs.map((t, i) => [t, prueba(hojas, i)!])),
+      pruebas: Object.fromEntries(txs.map((t, i) => [t, ruta(hojas, i)])),
     },
   };
 }
@@ -604,8 +613,8 @@ function verificarSinCaptura(x: EntradaVerificacion, dir: Directorio): Informe {
       'no se dispone del punto de referencia de la transacción',
     );
   else if (malK) add('V1', 'INCORRECTO', malK);
-  else {
-    const f = comprobarFirma(dir, 'registro', cuerpo(K!.t, K!.n, K!.A), K!.sigR);
+  else if (K) {
+    const f = comprobarFirma(dir, 'registro', cuerpo(K.t, K.n, K.A), K.sigR);
     if (f === 'CLAVE_DESCONOCIDA')
       add('V1', 'SIN_EVIDENCIA', 'el directorio no contiene la clave del registro');
     else if (f !== 'VÁLIDA')
@@ -623,7 +632,7 @@ function verificarSinCaptura(x: EntradaVerificacion, dir: Directorio): Informe {
         'no se dispone de la prueba de inclusión del punto de referencia',
       );
     else {
-      const inc = comprobarInclusion(Kbytes(K!), x.prueba, x.raiz);
+      const inc = comprobarInclusion(Kbytes(K), x.prueba, x.raiz);
       if (inc === 'INCLUIDO')
         add('V1', 'CORRECTO', 'punto de referencia incluido en la raíz del testigo');
       else if (inc === 'NO_INCLUIDO')
@@ -654,7 +663,7 @@ function verificarSinCaptura(x: EntradaVerificacion, dir: Directorio): Informe {
   }
   const R = x.historial as Registro[];
   const ev = R.map(r => r[0]);
-  const t = K?.t ?? ev[0]?.t;
+  const t = K?.t ?? ev.at(0)?.t;
   const ids = ev.map(E => E.e);
   const prob2: string[] = [];
   if (!ev.every(E => E.t === t)) prob2.push('hay eventos de otra transacción');
@@ -682,14 +691,14 @@ function verificarSinCaptura(x: EntradaVerificacion, dir: Directorio): Informe {
   // V4: dependencias causales
   const dig = ev.map(d);
   const prob4: string[] = [];
-  ev.forEach((E, i) =>
-    E.P.forEach(p => {
+  ev.forEach((E, i) => {
+    for (const p of E.P) {
       const j = dig.findIndex(y => eq(y, p));
       if (j < 0) prob4.push(`${E.e}: referencia causal inexistente (${hex(p, 12)})`);
       else if (j >= i)
         prob4.push(`${E.e}: referencia a un evento posterior (${ev[j].e})`);
-    }),
-  );
+    }
+  });
   add(
     'V4',
     prob4.length ? 'INCORRECTO' : 'CORRECTO',
@@ -720,7 +729,7 @@ function verificarSinCaptura(x: EntradaVerificacion, dir: Directorio): Informe {
     }
     q = nx;
   }
-  if (!anom.length && !FINAL.has(q[0]!))
+  if (!anom.length && (q[0] === null || !FINAL.has(q[0])))
     anom.push(`estado final no alcanzado (${q[0]})`);
   add(
     'V6',

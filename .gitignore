@@ -1,4 +1,10 @@
+# Dependencias y cachés
+node_modules/
 __pycache__/
 *.pyc
-node_modules/
-informes/e2e.json
+.ruff_cache/
+
+# Informes en formato de máquina que se regeneran en cada ejecución;
+# la integración continua los publica como artefactos.
+prototipo/informes/e2e.json
+prototipo/informes/e2e.xml
