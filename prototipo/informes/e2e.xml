@@ -1,0 +1,380 @@
+<?xml version="1.0"?>
+<testsuite name="Cucumber" time="0.57" tests="44" skipped="0" failures="0" errors="0" timestamp="2026-11-23T23:18:15.087Z">
+  <testcase classname="Detección de manipulaciones del historial de una transferencia" name="1 · Ejecución normal" time="0.03">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000123" con la raíz del testigo.........passed
+Entonces el resultado es "VÁLIDO"...........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Detección de manipulaciones del historial de una transferencia" name="2 · Alteración del contenido de un evento" time="0.012">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante cambia los datos del evento "E3" de "TX-2026-000123" a "resultado=aprobada;riesgo=0.92"..passed
+Y el servicio "antifraude" aporta al auditor los datos originales del evento "E3"..passed
+Y el auditor verifica "TX-2026-000123" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V3, V4, V5, V7".........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Detección de manipulaciones del historial de una transferencia" name="3 · Eliminación de un evento intermedio" time="0.014">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante elimina el evento "E3" de "TX-2026-000123"...............passed
+Y el auditor verifica "TX-2026-000123" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V2, V4, V5, V6".........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Detección de manipulaciones del historial de una transferencia" name="6a · Reconstrucción completa del historial sin la raíz del testigo" time="0.013">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante, con el control del registro y las claves de todos los servicios, reconstruye "TX-2026-000123" con los datos del evento "E3" cambiados a "resultado=aprobada;riesgo=0.92"..passed
+Y el auditor verifica el historial reconstruido sin la raíz del testigo.....passed
+Entonces el resultado es "NO_VERIFICABLE"...................................passed
+Y el paso "V1" queda sin evidencia..........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Detección de manipulaciones del historial de una transferencia" name="6b · Reconstrucción completa del historial con la raíz del testigo" time="0.01">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante, con el control del registro y las claves de todos los servicios, reconstruye "TX-2026-000123" con los datos del evento "E3" cambiados a "resultado=aprobada;riesgo=0.92"..passed
+Y el auditor verifica el historial reconstruido con la raíz del testigo.....passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V1".....................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Detección de manipulaciones del historial de una transferencia" name="C1 · Reordenamiento de dos eventos dependientes" time="0.008">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante intercambia los eventos "E4" y "E5" de "TX-2026-000123"..passed
+Y el auditor verifica "TX-2026-000123" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V4, V5, V6".............................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Detección de manipulaciones del historial de una transferencia" name="C2 · Inserción de un evento firmado con una clave ajena" time="0.008">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante inserta en "TX-2026-000123" un evento "E6" del servicio "antifraude" firmado con una clave ajena..passed
+Y el auditor verifica "TX-2026-000123" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V2, V3, V5, V6".........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Detección de manipulaciones del historial de una transferencia" name="C3 · Suplantación de un servicio por otro" time="0.007">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante vuelve a firmar el evento "E3" de "TX-2026-000123" con la clave del servicio "cuentas"..passed
+Y el auditor verifica "TX-2026-000123" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V3".....................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Reintentos y reversos de la saga" name="4a · Reintento legítimo tras un fallo de comunicación" time="0.008">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000124" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden "E1, E2, E3, E3, E3b, E4, E5"..passed
+Y el registro cierra "TX-2026-000124" y ancla el periodo "P1" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000124" con la raíz del testigo.........passed
+Entonces el registro respondió "IGNORADO" a la reentrega del evento "E3"....passed
+Y el resultado es "VÁLIDO"..................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Reintentos y reversos de la saga" name="4b · Duplicación de un evento" time="0.009">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000126" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000126" y ancla el periodo "P1" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000126" con la raíz del testigo.........passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V6".....................................................passed
+Y el verificador señala la regla "RI2"......................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Reintentos y reversos de la saga" name="5a · Reverso tras un fallo de ejecución" time="0.007">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000125" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000125" y ancla el periodo "P1" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000125" con la raíz del testigo.........passed
+Entonces el resultado es "VÁLIDO"...........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Reintentos y reversos de la saga" name="5b · Reverso sin fallo previo" time="0.005">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000127" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000127" y ancla el periodo "P1" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000127" con la raíz del testigo.........passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V6".....................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Disponibilidad del compromiso externo (pruebas T)" name="T1 · Historial íntegro sin la prueba de inclusión" time="0.006">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000123" sin la prueba de inclusión......passed
+Entonces el resultado es "NO_VERIFICABLE"...................................passed
+Y el paso "V1" queda sin evidencia..........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Disponibilidad del compromiso externo (pruebas T)" name="T2 · Historial íntegro sin punto de referencia" time="0.006">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000123" sin punto de referencia ni raíz..passed
+Entonces el resultado es "NO_VERIFICABLE"...................................passed
+Y el paso "V1" queda sin evidencia..........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Disponibilidad del compromiso externo (pruebas T)" name="T3 · Raíz de otro periodo" time="0.005">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000123" con la raíz de otro periodo.....passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V1".....................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Disponibilidad del compromiso externo (pruebas T)" name="T4 · Punto de referencia con la firma del registro alterada" time="0.007">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante altera un byte de la firma del punto de referencia de "TX-2026-000123"..passed
+Y el auditor verifica "TX-2026-000123" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V1".....................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Disponibilidad del compromiso externo (pruebas T)" name="T5 · Prueba de inclusión mal formada" time="0.005">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000123" con una prueba de inclusión mal formada..passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V1".....................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Disponibilidad del compromiso externo (pruebas T)" name="T6 · Alteración detectada aunque falte el testigo" time="0.006">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante cambia los datos del evento "E3" de "TX-2026-000123" a "resultado=aprobada;riesgo=0.92"..passed
+Y el auditor verifica "TX-2026-000123" sin la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V3, V4, V5".............................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Separación entre datos de negocio y evidencias (pruebas D)" name="D1 · El registro no conserva datos de negocio" time="0.005">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Entonces el contenido completo del registro no incluye ninguno de los datos de negocio emitidos..passed]]></system-out>
+  </testcase>
+  <testcase classname="Separación entre datos de negocio y evidencias (pruebas D)" name="D2 · El registro rechaza un evento con datos de negocio incrustados" time="0.005">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando un servicio envía a un registro nuevo el evento "E1" de "TX-2026-000123" con el campo "data"..passed
+Entonces el registro responde "RECHAZADO"...................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Separación entre datos de negocio y evidencias (pruebas D)" name="D3 · El verificador rechaza un historial con datos de negocio incrustados" time="0.005">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante incrusta el campo "data" en el evento "E1" de "TX-2026-000123"..passed
+Y el auditor verifica "TX-2026-000123" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V2".....................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Separación entre datos de negocio y evidencias (pruebas D)" name="D4 · Ataque por diccionario sobre el resumen de un dato predecible" time="0.006">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante prueba los niveles de riesgo de 0,00 a 1,00 contra el resumen c del evento "E3" de "TX-2026-000123"..passed
+Entonces recupera "resultado=aprobada;riesgo=0.12" en 13 intentos...........passed]]></system-out>
+  </testcase>
+  <testcase classname="Reglas de reintento RI1 a RI5 (pruebas I)" name="I1 · Intentos 1, 2 y 3" time="0.009">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000201" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000201" y ancla el periodo "P2" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000201" con la raíz del testigo.........passed
+Entonces el resultado es "VÁLIDO"...........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Reglas de reintento RI1 a RI5 (pruebas I)" name="I2 · Intentos 1 y 3, falta el 2" time="0.016">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000202" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000202" y ancla el periodo "P2" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000202" con la raíz del testigo.........passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V6".....................................................passed
+Y el verificador señala la regla "RI3"......................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Reglas de reintento RI1 a RI5 (pruebas I)" name="I3 · Primer y único intento con número 9" time="0.007">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000203" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000203" y ancla el periodo "P2" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000203" con la raíz del testigo.........passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V6".....................................................passed
+Y el verificador señala la regla "RI3"......................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Reglas de reintento RI1 a RI5 (pruebas I)" name="I4 · Dos eventos con intento 1 y distinto contenido" time="0.007">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000204" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000204" y ancla el periodo "P2" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000204" con la raíz del testigo.........passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V6".....................................................passed
+Y el verificador señala la regla "RI2"......................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Reglas de reintento RI1 a RI5 (pruebas I)" name="I5 · Intentos 1 y 2 con resultados distintos" time="0.005">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000205" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000205" y ancla el periodo "P2" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000205" con la raíz del testigo.........passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V6".....................................................passed
+Y el verificador señala la regla "RI4"......................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Reglas de reintento RI1 a RI5 (pruebas I)" name="I6 · Intento 2 registrado antes que el 1" time="0.005">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000206" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden "E1, E2, E3b, E3, E4, E5"..passed
+Y el registro cierra "TX-2026-000206" y ancla el periodo "P2" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000206" con la raíz del testigo.........passed
+Entonces el resultado es "VÁLIDO"...........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Reglas de reintento RI1 a RI5 (pruebas I)" name="I7 · Intento 2 emitido por otro servicio" time="0.005">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000207" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000207" y ancla el periodo "P2" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000207" con la raíz del testigo.........passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V6".....................................................passed
+Y el verificador señala la regla "RI1"......................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Respuesta ante entradas inválidas (pruebas X)" name="X1 · El registro rechaza un emisor que no está en el directorio" time="0.011">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el servicio "pagos-externos", que no figura en el directorio, envía al registro el evento "E1" de "TX-2026-000220"..passed
+Entonces el registro responde "RECHAZADO"...................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Respuesta ante entradas inválidas (pruebas X)" name="X2 · El verificador rechaza un evento atribuido a un emisor desconocido" time="0.006">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante atribuye el evento "E3" de "TX-2026-000123" al servicio "pagos-externos"..passed
+Y el auditor verifica "TX-2026-000123" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V3, V4, V5".............................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Respuesta ante entradas inválidas (pruebas X)" name="X3 · Árbol de Merkle de un periodo sin transacciones" time="0.003">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando se calcula la raíz de un periodo vacío...............................passed
+Entonces la raíz es "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"..passed
+Y no existe prueba de inclusión para ese periodo............................passed]]></system-out>
+  </testcase>
+  <testcase classname="Respuesta ante entradas inválidas (pruebas X)" name="X4 · El registro deja en espera una referencia causal inexistente y la descarta al vencer el plazo" time="0.006">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el servicio "cuentas" envía al registro un evento "E4" de "TX-2026-000221" que depende de un resumen inexistente..passed
+Y pasa el plazo de espera sin que llegue la dependencia.....................passed
+Entonces el registro respondió "PENDIENTE" y después notificó "RECHAZADO" para el evento "E4"..passed]]></system-out>
+  </testcase>
+  <testcase classname="Respuesta ante entradas inválidas (pruebas X)" name="X5 · El verificador rechaza una referencia causal inexistente" time="0.005">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante sustituye el evento "E4" de "TX-2026-000123" por uno firmado que depende de un resumen inexistente..passed
+Y el auditor verifica "TX-2026-000123" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V4, V5".................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Respuesta ante entradas inválidas (pruebas X)" name="X6 · Firma inválida con un byte alterado" time="0.006">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante altera un byte de la firma del evento "E3" de "TX-2026-000123"..passed
+Y el auditor verifica "TX-2026-000123" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V3".....................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Respuesta ante entradas inválidas (pruebas X)" name="X7 · Firma mal formada en el historial" time="0.007">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante sustituye la firma del evento "E3" de "TX-2026-000123" por 10 bytes..passed
+Y el auditor verifica "TX-2026-000123" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V3".....................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Respuesta ante entradas inválidas (pruebas X)" name="X8 · El registro rechaza una firma mal formada" time="0.003">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el servicio "orquestador" envía al registro el evento "E1" de "TX-2026-000123" con una firma de 10 bytes..passed
+Entonces el registro responde "RECHAZADO"...................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Respuesta ante entradas inválidas (pruebas X)" name="X9 · El verificador rechaza un evento mal formado" time="0.004">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el atacante deja el evento "E4" de "TX-2026-000123" con intento 0, una referencia de 5 bytes y la transacción vacía..passed
+Y el auditor verifica "TX-2026-000123" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V2".....................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Respuesta ante entradas inválidas (pruebas X)" name="X10 · El registro rechaza un evento mal formado" time="0.003">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el servicio "orquestador" envía al registro el evento "E1" de "TX-2026-000123" con intento 0..passed
+Entonces el registro responde "RECHAZADO"...................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Respuesta ante entradas inválidas (pruebas X)" name="X11 · El verificador recibe un historial que no es una lista" time="0.003">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000123" con un historial que no es una lista..passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V2".....................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Respuesta ante entradas inválidas (pruebas X)" name="X12 · El registro no cierra una transacción desconocida" time="0.003">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y el registro cierra "TX-2026-000123" y ancla el periodo "P1" en el testigo..passed
+Cuando el registro intenta cerrar "TX-2026-999999"..........................passed
+Entonces el cierre termina con un error controlado..........................passed]]></system-out>
+  </testcase>
+  <testcase classname="Eventos que llegan antes que sus dependencias (pruebas O)" name="O1 y O2 · E4 llega antes que E3, queda pendiente y la transacción se verifica después" time="0.011">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000210" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden "E1, E2, E4, E3, E5".....passed
+Y el registro cierra "TX-2026-000210" y ancla el periodo "P2" en el testigo..passed
+Cuando el auditor verifica "TX-2026-000210" con la raíz del testigo.........passed
+Entonces el registro respondió "PENDIENTE" al evento "E4"...................passed
+Y al llegar "E3" el registro aceptó también "E4"............................passed
+Y el resultado es "VÁLIDO"..................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Eventos que llegan antes que sus dependencias (pruebas O)" name="O3, O4 y O5 · E3 no llega nunca" time="0.006">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000211" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden "E1, E2, E4, E5".........passed
+Cuando el registro intenta cerrar "TX-2026-000211"..........................passed
+Entonces el cierre termina con un error controlado..........................passed
+Cuando pasa el plazo de espera sin que llegue la dependencia................passed
+Entonces el registro notificó como incidencia por plazo los eventos "E4, E5"..passed
+Cuando el registro cierra "TX-2026-000211" y ancla el periodo "P2" en el testigo..passed
+Y el auditor verifica "TX-2026-000211" con la raíz del testigo..............passed
+Entonces el resultado es "INVÁLIDO".........................................passed
+Y fallan los pasos "V6".....................................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Reproducibilidad de los valores publicados en el trabajo" name="Periodo P1 con las cinco transacciones del caso de estudio" time="0.017">
+    <system-out><![CDATA[Dado que la saga "TX-2026-000123" emite los eventos:........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y que la saga "TX-2026-000124" emite los eventos:...........................passed
+Y el registro de evidencias los recibe en el orden "E1, E2, E3, E3, E3b, E4, E5"..passed
+Y que la saga "TX-2026-000125" emite los eventos:...........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y que la saga "TX-2026-000126" emite los eventos:...........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Y que la saga "TX-2026-000127" emite los eventos:...........................passed
+Y el registro de evidencias los recibe en el orden de emisión...............passed
+Cuando el registro cierra "TX-2026-000123, TX-2026-000124, TX-2026-000125, TX-2026-000126, TX-2026-000127" y ancla el periodo "P1" en el testigo..passed
+Entonces el resumen d(E1) de "TX-2026-000123" es "ef95dee9015803df2266eb9bf35c272ae8005afd5ee2d83670b989fc75e20b5d"..passed
+Y el valor inicial A₀ de "TX-2026-000123" empieza por "de3182924a3b"........passed
+Y el valor acumulado final de cada transacción es:..........................passed
+Y la raíz que conserva el testigo para "P1" es "b968809d7fd6ad3d3f88d79a1a2d5efca2dbc8c02890f8fe5d43607095187c60"..passed
+Y la prueba de inclusión de "TX-2026-000123" tiene 3 resúmenes..............passed]]></system-out>
+  </testcase>
+</testsuite>

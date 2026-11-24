@@ -1,0 +1,76 @@
+# Integración continua del prototipo de referencia.
+# En cada push y pull request ejecuta, en Linux, Windows y macOS:
+#   1. la comprobación de tipos del prototipo (TypeScript estricto);
+#   2. las pruebas de extremo a extremo en Gherkin (Cucumber), con su informe HTML y JUnit;
+#   3. la evaluación de los 55 casos del caso de estudio;
+#   4. la comparación de los 40 vectores entre las implementaciones en TypeScript y en Python (RNF-01).
+name: pruebas
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pruebas:
+    name: pruebas (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: prototipo/package-lock.json
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Instalar dependencias
+        run: |
+          npm ci --prefix prototipo
+          python -m pip install -r python/requirements.txt
+
+      - name: Comprobar tipos
+        working-directory: prototipo
+        run: npm run tipos
+
+      - name: Pruebas de extremo a extremo (Cucumber)
+        working-directory: prototipo
+        run: npm run e2e
+
+      - name: Resumen de las pruebas de extremo a extremo
+        if: always()
+        working-directory: prototipo
+        shell: bash
+        run: |
+          npm run e2e:resumen
+          cat informes/resumen.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Evaluación del caso de estudio (55 casos)
+        working-directory: prototipo
+        run: npm run evaluar
+
+      - name: Vectores TypeScript frente a Python (RNF-01)
+        shell: bash
+        run: |
+          cd prototipo && npm run vectores && cd ../python
+          python vectores.py
+
+      - name: Publicar los informes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: informes-${{ matrix.os }}
+          path: |
+            prototipo/informes/
+            prototipo/resultados/

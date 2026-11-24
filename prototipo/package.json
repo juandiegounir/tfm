@@ -1,15 +1,25 @@
 {
   "name": "prototipo-marco-verificacion",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "private": true,
   "type": "module",
   "description": "Prototipo de referencia del marco metodológico de verificación determinista (TFM, 3.ª entrega)",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "evaluar": "tsx src/evaluacion.ts",
     "evaluar:detalle": "tsx src/evaluacion.ts -v",
+    "e2e": "node --import tsx node_modules/@cucumber/cucumber/bin/cucumber.js",
+    "e2e:resumen": "tsx e2e/resumen.ts",
     "vectores": "tsx src/vectores.ts",
-    "tipos": "tsc"
+    "tipos": "tsc",
+    "probar": "npm run tipos && npm run e2e && npm run e2e:resumen && npm run evaluar"
   },
-  "devDependencies": { "tsx": "^4.19.0", "typescript": "^5.6.0", "@types/node": "^22.0.0" }
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.3.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
 }
